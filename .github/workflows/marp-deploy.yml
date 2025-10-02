@@ -66,6 +66,9 @@ jobs:
             if (fs.existsSync(picturesDir)) {
               const destPicturesDir = path.join('dist', 'pictures');
               console.log('Copying pictures directory...');
+              if (!fs.existsSync(destPicturesDir)) {
+                fs.mkdirSync(destPicturesDir, { recursive: true });
+              }
               execSync(`cp -r "${picturesDir}/"* "${destPicturesDir}/"`, { stdio: 'inherit' });
             }
 
