@@ -1,0 +1,15 @@
+# Build outputs
+dist/
+*.html
+*.pdf
+
+# Exclude from docs directory (keep markdown only)
+docs/*.html
+docs/*.pdf
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
