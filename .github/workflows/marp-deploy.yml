@@ -66,7 +66,7 @@ jobs:
             if (fs.existsSync(picturesDir)) {
               const destPicturesDir = path.join('dist', 'pictures');
               console.log('Copying pictures directory...');
-              execSync(`cp -r "${picturesDir}" "${destPicturesDir}"`, { stdio: 'inherit' });
+              execSync(`cp -r "${picturesDir}/"* "${destPicturesDir}/"`, { stdio: 'inherit' });
             }
 
       - name: Create index page
