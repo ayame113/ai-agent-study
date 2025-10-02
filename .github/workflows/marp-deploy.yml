@@ -31,82 +31,88 @@ jobs:
         run: npm install -g @marp-team/marp-cli
 
       - name: Build slides
-        run: |
-          mkdir -p dist
-          for file in docs/*.md; do
-            if [ -f "$file" ]; then
-              filename=$(basename "$file" .md)
-              marp "$file" -o "dist/${filename}.html" --html
-              marp "$file" -o "dist/${filename}.pdf" --allow-local-files
-            fi
-          done
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execSync } = require('child_process');
+
+            // Create dist directory
+            if (!fs.existsSync('dist')) {
+              fs.mkdirSync('dist');
+            }
+
+            // Get all markdown files in docs directory
+            const docsDir = 'docs';
+            const files = fs.readdirSync(docsDir)
+              .filter(file => file.endsWith('.md') && file !== 'README.md')
+              .map(file => path.join(docsDir, file));
+
+            // Build each slide
+            for (const file of files) {
+              const filename = path.basename(file, '.md');
+              console.log(`Building ${filename}...`);
+              
+              // Build HTML
+              execSync(`marp "${file}" -o "dist/${filename}.html" --html`, { stdio: 'inherit' });
+              
+              // Build PDF
+              execSync(`marp "${file}" -o "dist/${filename}.pdf" --allow-local-files`, { stdio: 'inherit' });
+            }
 
       - name: Create index page
-        run: |
-          cat > dist/index.html << 'INDEXEOF'
-          <!DOCTYPE html>
-          <html lang="ja">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Marp Slides</title>
-            <style>
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-                max-width: 800px;
-                margin: 50px auto;
-                padding: 20px;
-                line-height: 1.6;
-              }
-              h1 {
-                border-bottom: 2px solid #333;
-                padding-bottom: 10px;
-              }
-              ul {
-                list-style: none;
-                padding: 0;
-              }
-              li {
-                margin: 15px 0;
-                padding: 15px;
-                background: #f5f5f5;
-                border-radius: 5px;
-              }
-              a {
-                color: #0366d6;
-                text-decoration: none;
-                margin-right: 15px;
-              }
-              a:hover {
-                text-decoration: underline;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>Marp Slides</h1>
-            <ul>
-          INDEXEOF
-          
-          for file in docs/*.md; do
-            if [ -f "$file" ]; then
-              filename=$(basename "$file" .md)
-              title=$(grep -m 1 "^# " "$file" | sed 's/^# //' || echo "$filename")
-              echo "      <li>" >> dist/index.html
-              echo "        <strong>$title</strong><br>" >> dist/index.html
-              echo "        <a href=\"${filename}.html\">HTML</a>" >> dist/index.html
-              echo "        <a href=\"${filename}.pdf\">PDF</a>" >> dist/index.html
-              echo "      </li>" >> dist/index.html
-            fi
-          done
-          
-          cat >> dist/index.html << 'INDEXEOF'
-            </ul>
-          </body>
-          </html>
-          INDEXEOF
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // Read all markdown files to get titles
+            const docsDir = 'docs';
+            const files = fs.readdirSync(docsDir)
+              .filter(file => file.endsWith('.md') && file !== 'README.md')
+              .map(file => path.join(docsDir, file));
+
+            // Extract titles from markdown files
+            const slides = files.map(file => {
+              const filename = path.basename(file, '.md');
+              const content = fs.readFileSync(file, 'utf8');
+              const titleMatch = content.match(/^# (.+)$/m);
+              const title = titleMatch ? titleMatch[1] : filename;
+              return { filename, title };
+            });
+
+            // Generate index HTML
+            const html = `<!DOCTYPE html>
+            <html lang="ja">
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Marp Slides</title>
+              <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+            <body class="bg-gray-50">
+              <div class="container mx-auto max-w-4xl px-4 py-12">
+                <h1 class="text-4xl font-bold text-gray-800 border-b-2 border-gray-300 pb-4 mb-8">Marp Slides</h1>
+                <ul class="space-y-4">
+            ${slides.map(slide => `      <li class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                    <strong class="text-xl text-gray-800 block mb-2">${slide.title}</strong>
+                    <div class="flex gap-4">
+                      <a href="${slide.filename}.html" class="text-blue-600 hover:text-blue-800 hover:underline">HTML</a>
+                      <a href="${slide.filename}.pdf" class="text-blue-600 hover:text-blue-800 hover:underline">PDF</a>
+                    </div>
+                  </li>`).join('\n')}
+                </ul>
+              </div>
+            </body>
+            </html>`;
+
+            fs.writeFileSync('dist/index.html', html);
+            console.log('Index page created successfully');
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
