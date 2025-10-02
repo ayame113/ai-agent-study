@@ -61,6 +61,14 @@ jobs:
               execSync(`marp "${file}" -o "dist/${filename}.pdf" --allow-local-files`, { stdio: 'inherit' });
             }
 
+            // Copy pictures directory to dist
+            const picturesDir = path.join(docsDir, 'pictures');
+            if (fs.existsSync(picturesDir)) {
+              const destPicturesDir = path.join('dist', 'pictures');
+              console.log('Copying pictures directory...');
+              execSync(`cp -r "${picturesDir}/"* "${destPicturesDir}/"`, { stdio: 'inherit' });
+            }
+
       - name: Create index page
         uses: actions/github-script@v7
         with:
