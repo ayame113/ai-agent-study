@@ -53,12 +53,9 @@ jobs:
             for (const file of files) {
               const filename = path.basename(file, '.md');
               console.log(`Building ${filename}...`);
-              
+
               // Build HTML
               execSync(`marp "${file}" -o "dist/${filename}.html" --html`, { stdio: 'inherit' });
-              
-              // Build PDF
-              execSync(`marp "${file}" -o "dist/${filename}.pdf" --allow-local-files`, { stdio: 'inherit' });
             }
 
             // Copy pictures directory to dist
@@ -111,7 +108,6 @@ jobs:
                     <strong class="text-xl text-gray-800 block mb-2">${slide.title}</strong>
                     <div class="flex gap-4">
                       <a href="${slide.filename}.html" class="text-blue-600 hover:text-blue-800 hover:underline">HTML</a>
-                      <a href="${slide.filename}.pdf" class="text-blue-600 hover:text-blue-800 hover:underline">PDF</a>
                     </div>
                   </li>`).join('\n')}
                 </ul>
