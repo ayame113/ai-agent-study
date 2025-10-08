@@ -302,6 +302,34 @@ https://zenn.dev/rescuenow/articles/2bd9d3a7bca510
 
 ---
 
+設定ファイル例
+
+`claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "ramen-mcp": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "mcp-remote",
+        "https://ramen-api.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+---
+
 ### mcpサーバーとの接続
 
 mcpサーバーへの接続を3つ以上試せたら今日の講義は終了です！
+
+# 次回予告
+
+- 作成してみたいAIエージェントの案を出す
+- 簡単なmcpサーバーの作成
