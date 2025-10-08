@@ -291,8 +291,10 @@ https://zenn.dev/rescuenow/articles/2bd9d3a7bca510
 #### 例
 
 - [YouTube MCP Server](https://github.com/ZubeidHendricks/youtube-mcp-server) - YouTubeの情報を取得する
+    - 利用にはAPIキーの発行が必要です
 - [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) - 任意のWebページの情報を取得する
 - [Ramen MCP Server](https://github.com/yusukebe/ramen-api?tab=readme-ov-file#remote-mcp) - ラーメン屋の情報を取得する
+- [Random Number MCP Server](https://github.com/zazencodes/random-number-mcp) - ランダムな数字を生成する
 
 ---
 
