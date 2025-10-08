@@ -340,7 +340,7 @@ winget install OpenJS.NodeJS.LTS
 #### uvのインストール
 
 ```
-winget install --id=astral-sh.uv  -e
+winget install --id=astral-sh.uv -e
 ```
 
 ---
