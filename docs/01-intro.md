@@ -14,7 +14,7 @@ paginate: true
 本授業では、7回の講義を通してAIエージェントを開発します。
 
 - AIエージェントの概要
-- mcp(Model Context Protocol)
+- mcp (Model Context Protocol)
 - Pythonを使用したAIエージェントの構築
 - Discordを使用したAIエージェントの公開
 
@@ -67,7 +67,7 @@ paginate: true
 ## 今日の内容
 
 - AIエージェントとはなにか
-- mcp(Model Context Protocol)とはなにか
+- mcp (Model Context Protocol)とはなにか
 - 既存のAIツールを触ってみよう
 
 ---
@@ -75,7 +75,7 @@ paginate: true
 ## 今日のゴール
 
 - AIエージェントとはなにか理解できている
-- mcp(Model Context Protocol)とはなにか理解できている
+- mcp (Model Context Protocol)とはなにか理解できている
 - Claude Desktopを使用し、3つ以上のmcpサーバーを試すことができている
 
 ---
@@ -177,6 +177,7 @@ ChatGPTにこれらをやってもらうには？
   - プログラミングを支援するAIエージェント
 - Gemini Deep Research
   - Web検索を行うAIエージェント
+- [駅すぱあと URLスマート検索](https://url-smart-search.roote.ekispert.net/)
 
 ---
 
