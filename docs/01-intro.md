@@ -325,6 +325,26 @@ https://zenn.dev/rescuenow/articles/2bd9d3a7bca510
 
 ---
 
+## その他
+
+#### claude desktop の再起動
+
+左上のハンバーガーメニュー → ファイル → 終了
+
+#### npmコマンドのインストール
+
+```
+winget install OpenJS.NodeJS.LTS
+```
+
+#### uvのインストール
+
+```
+winget install --id=astral-sh.uv  -e
+```
+
+---
+
 ### mcpサーバーとの接続
 
 mcpサーバーへの接続を3つ以上試せたら今日の講義は終了です！
