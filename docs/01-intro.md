@@ -327,7 +327,7 @@ https://zenn.dev/rescuenow/articles/2bd9d3a7bca510
 
 ## その他
 
-#### claude desktop の再起動
+#### Claude Desktop の再起動
 
 左上のハンバーガーメニュー → ファイル → 終了
 
