@@ -1,5 +1,5 @@
 from mcp.server.fastmcp import FastMCP
-from typing import TypedDict
+# from typing import TypedDict
 
 mcp = FastMCP(name="menu-tool")
 
@@ -18,12 +18,12 @@ menus = {
     "餃子": ["豚肉", "キャベツ", "ニラ", "餃子の皮", "醤油"],
 }
 
-class MenuResponse(TypedDict):
-    menu: str
-    ingredients: list[str]
+# class MenuResponse(TypedDict):
+#     menu: str
+#     ingredients: list[str]
 
 @mcp.tool()
-def menu(ingredient: str) -> list[MenuResponse]:
+def menu(ingredient: str) -> list[dict[str, list[str]|str]]:
     """Return a menu based on the given ingredient."""
     result = []
     for k, v in menus.items():
