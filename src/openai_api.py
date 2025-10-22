@@ -5,7 +5,7 @@ from openai import OpenAI
 load_dotenv()
 
 openai = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
+  api_key=os.getenv("OPENAI_API_KEY"),
 )
 
 # 使用するAIモデル
@@ -19,9 +19,9 @@ input = "こんにちは"
 
 # AI応答を生成
 response = openai.responses.create(
-    model=model,
-    instructions=instructions,
-    input=input,
+  model=model,
+  instructions=instructions,
+  input=input,
 )
 
 # 結果を表示
