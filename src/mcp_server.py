@@ -1,5 +1,4 @@
 from mcp.server.fastmcp import FastMCP
-# from typing import TypedDict
 
 import requests
 
