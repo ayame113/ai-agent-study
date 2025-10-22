@@ -1,7 +1,7 @@
 import discord
 from dotenv import load_dotenv
 import os
-from openai import OpenAI
+from openai_api import OpenAI
 
 load_dotenv()
 

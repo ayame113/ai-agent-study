@@ -1,7 +1,19 @@
 from mcp.server.fastmcp import FastMCP
 # from typing import TypedDict
 
+import requests
+
 mcp = FastMCP(name="menu-tool")
+
+@mcp.tool()
+def weather_forecast() -> dict:
+    """Get the weather forecast for Nagano Prefecture."""
+    url = "https://www.jma.go.jp/bosai/forecast/data/forecast/200000.json"
+
+    response = requests.get(url)
+    data = response.json()
+
+    return data
 
 
 @mcp.tool()
